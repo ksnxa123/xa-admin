@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import sha1 from 'js-sha1'
 import { stripscript, validatePass, validateEmail, validateVCode } from '@/utils/validata';
 import {GetSms,Register,Login} from '@/api/login';
 import { Message } from 'element-ui';
@@ -169,24 +170,22 @@ export default {
     login(){
       let resquestData = {
         username:this.ruleForm.username,
-        password:this.ruleForm.password,
+        password:sha1(this.ruleForm.password),
         code:this.ruleForm.code
       }
       this.$store.dispatch('app/login',resquestData).then(response => {
-        console.log('登录成功')
-        console.log(response)
         this.$router.push({
           name:'Backcontrol'
         })
       }).catch(error => {
-
+        // 重置数据
       })
     },
     //注册
     register(){
       let requestData = {
         username: this.ruleForm.username,
-        password: this.ruleForm.password,
+        password: sha1(this.ruleForm.password),
         code: this.ruleForm.code,
         module: 'register'
       }
@@ -201,7 +200,7 @@ export default {
           type: 'success'
         });
       }).catch(error => {
-
+        //重置数据
       })
     },
     //清除表单
@@ -232,7 +231,7 @@ export default {
         GetSms(requestData).then(response=>{
           let data = response.data
           this.$message({
-            message: '验证码已发送',
+            message: response.message,
             type: 'success'
           });
           //启用注册登录按钮

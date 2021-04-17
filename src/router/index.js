@@ -42,56 +42,165 @@ export const routes = [
       component:()=>import('../views/Backcontrol/index')
     }]
   },
+  //停车场
   {
-    path: "/info",
-    name: "Info",
+    path: "/park",
+    name: "Park",
     meta:{
-      name:"信息管理",
-      icon:'news'
+      name:"停车场",
+      icon:'backcontrol'
+    },
+    component: Layout,
+    children:[{
+      path:'/parkIndex',
+      name:'ParkIndex',
+      meta:{
+        name:"停车场列表"
+      },
+      component:()=>import('../views/Parking/index')
+    },
+    {
+      path:'/parkAdd',
+      name:'ParkAdd',
+      meta:{
+        name:"新增停车场"
+      },
+      component:()=>import('../views/Parking/add')
+    }]
+  },
+
+  // 车辆品牌
+  {
+    path: "/brand",
+    name: "Brand",
+    meta:{
+      name:"车辆品牌",
+      icon:'backcontrol'
+    },
+    component: Layout,
+    children:[{
+      path:'/carsBrand',
+      name:'CarsBrand',
+      meta:{
+        name:"品牌列表"
+      },
+      component:()=>import('../views/carsBrand/index')
+    }]
+  },
+
+  //车辆管理
+  {
+    path: "/cars",
+    name: "Cars",
+    meta:{
+      name:"车辆管理",
+      icon:'backcontrol'
     },
     component: Layout,
     children:[
       {
-      path:'/infoIndex',
-      name:'InfoIndex',
-      meta:{
-        name:"信息列表"
-      },
-      component:()=>import('../views/Info/index')
+        path:'/carsIndex',
+        name:'CarsIndex',
+        meta:{
+          name:"车辆属性"
+        },
+        component:()=>import('../views/Cars/attrList.vue')
       },
       {
-        path:'/infoDif',
-        name:'InfoDif',
+        path:'/carsAdd',
+        name:'CarsAdd',
         meta:{
-          name:"信息分类"
+          name:"新增车辆"
         },
-        component:()=>import('../views/Info/dif')
-        }
+        component:()=>import('../views/Cars/add.vue')
+      },
+      {
+        path:'/carsList',
+        name:'CarsList',
+        meta:{
+          name:"车辆列表"
+        },
+        component:()=>import('../views/Cars/index.vue')
+      },
     ]
   },
-   /**
-   * 用户管理
-   */
+  // 销售管理
   {
-    path: "/user",
-    name: "User",
+    path: "/sale",
+    name: "Sale",
     meta: {
-      role: ['sale'],
-      system: 'userSystem', // 自定义key
-      name: "用户管理",
-      icon: 'users'
+      name: "销售管理",
+      icon:'backcontrol'
     },
     component: Layout,
     children: [
       {
-        path: "/userIndex",
-        name: "UserIndex",
+        path: "/leaseList",
+        name: "LeaseList",
         meta: {
-          keepAlive: true,
-          role: ['sale'],
-          name: "用户列表"
+          name: "租车类型"
         },
-        component: () => import("../views/User/index.vue")
+        component: () => import("../views/Sale/leaseList.vue"),
+      }
+    ]
+  },
+  // 会员管理
+  {
+    path: "/member",
+    name: "Member",
+    meta: {
+      name: "会员管理",
+      icon:'backcontrol',
+      iconClass: "icon_console"
+    },
+    component: Layout,
+    children: [
+      {
+        path: "/memberList",
+        name: "MemberList",
+        meta: {
+          name: "会员列表",
+          icon:'backcontrol',
+        },
+        component: () => import("../views/Member/index.vue"),
+      },
+      {
+        path: "/memberInfo",
+        name: "MemberInfo",
+        hidden: true,
+        meta: {
+          name: "会员编辑"
+        },
+        component: () => import("../views/Member/memberInfo.vue"),
+      },
+      {
+        path: "/memberDetailed",
+        name: "MemberDetailed",
+        hidden: true,
+        meta: {
+          name: "会员详情"
+        },
+        component: () => import("../views/Member/detailed.vue"),
+      }
+    ]
+  },
+  // 订单管理
+  {
+    path: "/order",
+    name: "Order",
+    meta: {
+      name: "订单管理",
+      icon:'backcontrol',
+    },
+    component: Layout,
+    children: [
+      {
+        path: "/orderList",
+        name: "OrderList",
+        meta: {
+          name: "订单列表"
+        },
+        component: () => import("../views/Order/index.vue"),
       }
     ]
   },

@@ -5,11 +5,25 @@
 .pull-left { float: left; }
 .pull-right { float: right; }
 
-// overflow
-.overflow-h { overflow: hidden; }
+// color
+.color-white { color: #fff; }
 
-.black-space-30 { height: 30px; }
+// float
+.pull-right { float: right; }
 
-@for $i from 1 through 110 {
-    .margin-left-#{$i} { margin-left:(1px * $i); }
-}
+// spacing
+.spacing-30 { height: 30px; }
+
+// padding
+.padding-top-30 { padding-top: 30px; }
+.padding-bottom-25 { padding-bottom: 25px; }
+
+// margin
+.margin-bottom-25 { margin-bottom: 25px; }
+
+// width
+.width-100 { width: 100px; }
+.width-120 { width: 120px; }
+
+// heigt
+.min-height-1 { min-height: 1px; }

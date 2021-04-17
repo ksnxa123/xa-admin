@@ -1,39 +1,19 @@
-import router from './index'
-import store from "../store/index";
-
-
-import { getToKen, removeToKen, removeUserName } from "@/utils/app";
-
-const whiteRouter = ['/login'];
-
-//路由守卫
-router.beforeEach((to,from,next) => {
-    if(getToKen()){
-        if(to.path === '/login'){
-            removeToKen();
-            removeUserName();
-            store.commit("app/SET_TOKEN", '');
-            store.commit("app/SET_USERNAME", '');
+import router from "./index";
+// cookie
+import { getToken } from "@/utils/app";
+// 全局前置守卫
+router.beforeEach((to, from, next) => {
+    // 获取 token 是否存在
+    if(getToken()){
+        next();
+    }else{
+        if(to.path === "/login") { // 这里是处理 login 页面的时候，没有 token
             next();
         }else{
-                next();
-            }
+            next({ path: "/login" });  // 这里是处理管理后台时没有 token ，进行 path 路由指向。
         }
-        /**
-         * 1、to = /console
-         * 2、to = /index
-         */
-        // 路由动态添加，分配菜单，每个角色分配不同的菜单
-    else{
-        if(whiteRouter.indexOf(to.path) !== -1) {  // 存在
-            next();  // to
-        }else{
-            next('/login')  // 路由指向
-        }
-        /**
-         * 1、直接进入index的时候，参数to被改变成了 "/index"，触发路由指向，就会跑beforeEach
-         * 2、再一次 next 指向了login，再次发生路由指向，再跑beforeEach，参数的to被改变成了"/login"
-         * 3、白名单判断存在，则直接执行next()，因为没有参数，所以不会再次beforeEach。
-         */
     }
+})
+// 全局后置守卫
+router.afterEach((to, from) => {
 })

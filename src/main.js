@@ -4,8 +4,12 @@ import router from "./router";
 import store from "./store";
 import "./plugins/element.js";
 
+
 //引入全局组件
 import './icons';
+//高德地图
+import "./plugins/aMap";
+
 
 import './router/premit'
 

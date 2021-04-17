@@ -1,63 +1,55 @@
 import { Login } from "@/api/login";
-import { setToKen, removeToKen, removeUserName, setUserName, getUserName } from "@/utils/app";
+import { setToken, setUsername, getUsername, removeToken, removeUsername } from "@/utils/app";
 
 
 const state = {
-    roles: [],
     isCollapse:JSON.parse(sessionStorage.getItem('isCollapse'))||false,
-    to_ken: '',
-    username: getUserName() || ''
+    token: '',
+    username: ''||getUsername()
 }
 
 const getters = {
-    roles: state => state.roles,
-    isCollapse:state => state.isCollapse,
 }
 
 const mutations = {
     SET_NAV(state){
         state.isCollapse = !state.isCollapse
         //h5本地存储
-        sessionStorage.setItem('isCollapse',JSON.stringify(state.isCollapse))
-        },
+        sessionStorage.setItem('isCollapse',String(state.isCollapse))
+    },
     SET_TOKEN(state, value){
-        state.to_ken = value
-        },
+        state.token = value
+    },
     SET_USERNAME(state, value){
         state.username = value
-        },
+    },
 }
 
 const actions = {
-    login({ commit }, resquestData) {
+    login(content, repuestData) {
         return new Promise((resolve, reject) => {
-            Login(resquestData).then((response) => {
-                let data = response.data.data
+            Login(repuestData).then((response) => {
+                let data = response.data
                 console.log(data)
-                // 普通的
-                // content.commit('SET_TOKEN', data.toKen);
-                // content.commit('SET_USERNAME', data.username);
-                // 解构的
-                commit('SET_TOKEN', data.token);
-                commit('SET_USERNAME', data.username);
-                setToKen(data.token);
-                setUserName(data.username);
+                content.commit('SET_TOKEN', data.token);
+                content.commit('SET_USERNAME', data.username);
+                setToken(data.token);
+                setUsername(data.username);
                 resolve(response)
             }).catch(error => {
                 reject(error)
             })
         })
     },
-    logout({ commit }){
+    logoutAction({ commit }){
         return new Promise((resolve, reject) => {
             Logout().then(response => {
-                const data = response.data
-                removeToKen();
-                removeUserName();
+                console.log(response)
+                removeToken();
+                removeUsername();
                 commit('SET_TOKEN', '');
                 commit('SET_USERNAME', '');
-                commit('SET_ROLES', []);
-                resolve(data);
+                resolve(response);
             })
             
         })

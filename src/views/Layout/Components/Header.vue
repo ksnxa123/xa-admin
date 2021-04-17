@@ -1,18 +1,20 @@
 <template>
-  <div id="header-wrap">
-      <div class="pull-left header-icon" @click="hideNav">
+  <el-row>
+    <el-col :span="12">
+      <span class="menu-btn" @click="hideNav">
         <svg-icon iconClass="menu" className="menu" />
+      </span>
+    </el-col>
+    <el-col :span="12">
+      <span class="logout">
+        <svg-icon iconClass="close" className="close" />
+      </span>
+      <div class="face-info">
+        <img src="../../../assets/images/face.jpg" alt="">
+        <span class="name">管理员</span>   
       </div>
-      <div class="pull-right header-icon">
-        <div class="user-info pull-left">
-          <img src="../../../assets/images/face.jpg" alt="">
-          管理员
-        </div>
-        <div class="header-icon pull-right">
-          <svg-icon iconClass="close" className="close" />
-        </div>
-      </div>
-  </div>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
@@ -31,46 +33,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../styles/config.scss';
-#header-wrap {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: $navMenu;
-    height: 75px;
-    background-color: #fff;
-    line-height: 75px;
-    @include webkit(box-shadow, 0 3px 16px 0 rgba(0, 0, 0, .1));
-    @include webkit(transition, all .3s ease 0s);
+.menu-btn { 
+  display: inline-block;
+  padding-top: 24px;
+  font-size: 25px;
+  cursor: pointer;
 }
-.header-icon{
-  padding: 0 32px;
-  svg{
-    margin-bottom: -8px;
-    font-size: 25px;
-    cursor:pointer;
-  }
+.logout {
+  float: right;
+  border-left: 1px solid #ededed;
+  width: 75px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 25px;
+  margin-right: -20px;
+  cursor: pointer;
 }
-.user-info{
-  height: 100%;
-  padding: 0 32px;
-  border-right: 1px solid #ededed;
-  + .header-icon{
-    padding: 0 28px;
-  }
-  img{
+.face-info {
+  float: right;
+  padding: 18px 30px 0 0;
+  img {
     display: inline-block;
-    margin-bottom: -12px;
+    vertical-align: middle;
+    border-radius: 100px;
     margin-right: 18px;
-    border-radius: 36px;
     width: 36px;
     height: 36px;
   }
-}
-.open {
-    #header-wrap { left: $navMenu; }
-}
-.close {
-    #header-wrap { left: $navMenuMin; }
 }
 </style>
