@@ -1,7 +1,7 @@
 <template>
 	<el-upload
 		class="avatar-uploader"
-		action="https://up-z2.qiniup.com"
+		action="http://up-z2.qiniup.com"
 		:data="uploadData"
 		:show-file-list="false"
 		:on-success="handleAvatarSuccess"
@@ -24,15 +24,16 @@ export default {
 		};
 	},
 	beforeMount(){
-		this.requestFlag && this.getQiniuToken();
+		// this.requestFlag && this.getQiniuToken();
+		this.getQiniuToken()
 	},
 	methods: {
 		getQiniuToken() {
 			// 在工作中，
 			const requestData = {
-				ak: "5F2rCgyOj6l8_EvHLu5ENzWVtABbCe8iXs6IileX",
-				sk: "h7z4Pw3jOjkW3OQqIG1CVxx3APkokt4IVctLg78n",
-				buckety: "bigbigtime"
+				ak: "k-nV8vEJpmsnkBV5E8YA4ap-k_8LKFZtR5M2dPx9",
+				sk :"OFCJv9RwmytE7-YNcPqe5l1S_HatbMwIVWg7uDZJ",
+				buckety: "ksnxa"
 			};
 			GetQiniuToken(requestData).then(response => {
 				const data = response.data;
@@ -42,7 +43,7 @@ export default {
 			});
 		},
 		handleAvatarSuccess(res, file) {
-			this.imageUrl = `http://qij9j2gxu.hn-bkt.clouddn.com/${res.key}`;
+			this.imageUrl = `http://ksnxa123.cn/${res.key}`;
 			this.$emit("update:value", this.imageUrl)
 		},
 		// 上传之前
