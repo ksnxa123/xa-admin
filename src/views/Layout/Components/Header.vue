@@ -6,7 +6,7 @@
       </span>
     </el-col>
     <el-col :span="12">
-      <span class="logout">
+      <span class="logout" @click="logout">
         <svg-icon iconClass="close" className="close" />
       </span>
       <div class="face-info">
@@ -27,6 +27,17 @@ export default {
     }),
     hideNav(){
       this.changeNav()
+    },
+   logout(){
+      this.$confirm('确认退出管理后台','提示',{
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(()=>{
+        this.$store.dispatch('app/logoutAction').then(()=>{
+          this.$router.push({name:'Login'})
+        })
+      })
     }
   },
 }

@@ -1,4 +1,4 @@
-import { Login } from "@/api/login";
+import { Login ,Logout} from "@/api/login";
 import { setToken, setUsername, getUsername, removeToken, removeUsername } from "@/utils/app";
 
 
@@ -43,15 +43,11 @@ const actions = {
     },
     logoutAction({ commit }){
         return new Promise((resolve, reject) => {
-            Logout().then(response => {
-                console.log(response)
                 removeToken();
                 removeUsername();
                 commit('SET_TOKEN', '');
                 commit('SET_USERNAME', '');
-                resolve(response);
-            })
-            
+                resolve();
         })
     }
 }
